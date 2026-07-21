@@ -60,6 +60,9 @@
 ``
 //
 // CHANGELOG:
+// v1.0.1: 21 July 2026 -- Changing behaviour for last index in list, It was
+//         returning one more of rectangles that needed (I thought it would be
+//         intentional but it doens't make sense) (rlay_hsplit_size/rlay_vsplit_size).
 // v1.0.0: 21 July 2026 -- Initial. @Nonsensayer
 ``
 
@@ -235,7 +238,7 @@ RLAY_API rlay_b32 rlay_vsplit_size(rlay_u32 index, rlay_u32 size, Rlay_Rect base
     begin = (base.w * index) / divisions;
     end = (base.w * (index + 1)) / divisions;
 
-    if (index > divisions) return rlay_false;
+    if (index >= divisions) return rlay_false;
 
     *output = rlay_init(base.x + begin, base.y, end - begin, base.h);
     return rlay_true;
@@ -252,7 +255,7 @@ RLAY_API rlay_b32 rlay_hsplit_size(rlay_u32 index, rlay_s32 size, Rlay_Rect base
     begin = (base.h * index) / divisions;
     end = (base.h * (index + 1)) / divisions;
 
-    if (index > divisions) return rlay_false;
+    if (index >= divisions) return rlay_false;
 
     *output = rlay_init(base.x, base.y + begin, base.w, end - begin);
     return rlay_true;
